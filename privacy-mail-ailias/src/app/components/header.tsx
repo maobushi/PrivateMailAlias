@@ -15,7 +15,6 @@ export default function Header() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // ウィンドウサイズが変更された際のリセット
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -29,19 +28,29 @@ export default function Header() {
 
   return (
     <>
-      <button
-        onClick={toggleMenu}
-        data-drawer-target="default-sidebar"
-        aria-controls="default-sidebar"
-        type="button"
-        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-400 dark:focus:ring-gray-600 md:hidden"
-      >
-        <MenuSharpIcon className="w-6 h-6 text-gray-900" />
-      </button>
+      <div className={`fixed top-0 left-0 right-0 flex items-center p-3 bg-white shadow-md ${isMenuOpen ? 'md:pl-0' : 'md:pl-54'}`}>
+        <button
+          onClick={toggleMenu}
+          data-drawer-target="default-sidebar"
+          aria-controls="default-sidebar"
+          type="button"
+          className="inline-flex items-center justify-center p-2 mr-4 text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        >
+          <MenuSharpIcon className="w-6 h-6 text-gray-900" />
+        </button>
+
+        <div className="flex-1"> {/* 修正：フレックス設定の調整 */}
+          <input
+            type="search"
+            className="w-full p-2 text-sm text-gray-700 bg-gray-200 border-none rounded-md focus:outline-none focus:ring-2 focus:ring-gray-300"
+            placeholder="Search..."
+          />
+        </div>
+      </div>
 
       <aside
         id="default-sidebar"
-        className={`fixed top-0 left-0 z-40 w-25 h-screen transition-transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}
+        className={`fixed top-0 left-0 z-40 w-54 h-screen transition-transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`} // 修正：バーガーメニューの幅を固定
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
